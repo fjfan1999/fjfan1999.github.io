@@ -14,7 +14,7 @@
 <meta property="og:description" content="Git学习笔记什么是版本控制？版本控制系统可以帮助你控制或管理某个事物（通常是源代码）的不同版本。版本控制系统模型包括两大主要类型：  __集中式模型__：所有用户都连接到一个中央的主仓库（master repository） 分布式模型: 每个用户都在自己的计算机上拥有完整的仓库  小结版本控制系统的主要目的是帮助你保留项目的详细历史记录，并且能够在不同的版本上进行工作。保留详细的项目历史记录很">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-03-08T16:40:04.000Z">
-<meta property="article:modified_time" content="2023-03-08T16:40:13.282Z">
+<meta property="article:modified_time" content="2023-03-09T07:32:43.794Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -109,7 +109,7 @@
 <p>它创建了一个叫做<code>projectname</code>的目录。<br>如果你想使用除默认名称之外的其他名称，只需要在后面加上新的项目名。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/user/project-name new-project-name</span><br></pre></td></tr></table></figure>
 
-<h6 id="判断仓库的状态"><a href="#判断仓库的状态" class="headerlink" title="判断仓库的状态"></a>判断仓库的状态</h6><p><code>git status</code>是了解Git的核心所在。它将告诉我们Git正在考虑什么，以及Git所看到的我们仓库的状态。当你第一次使用Git时，你应该一直都要使用<code>git status</code>命令！说真的，你应该习惯于运行任何其他命令之后，都运行下该命令。</p>
+<h5 id="判断仓库的状态"><a href="#判断仓库的状态" class="headerlink" title="判断仓库的状态"></a>判断仓库的状态</h5><p><code>git status</code>是了解Git的核心所在。它将告诉我们Git正在考虑什么，以及Git所看到的我们仓库的状态。当你第一次使用Git时，你应该一直都要使用<code>git status</code>命令！说真的，你应该习惯于运行任何其他命令之后，都运行下该命令。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
 
 <h4 id="二-查看仓库的历史记录"><a href="#二-查看仓库的历史记录" class="headerlink" title="二. 查看仓库的历史记录"></a>二. 查看仓库的历史记录</h4><h5 id="显示仓库的commit"><a href="#显示仓库的commit" class="headerlink" title="显示仓库的commit"></a>显示仓库的commit</h5><p>使用<code>git log</code>命令来显示仓库中所有commit的信息。</p>
@@ -136,6 +136,191 @@
 <li>显示被修改的文件</li>
 <li>显示添加&#x2F;删除的行数</li>
 <li>显示一个摘要，其中包含删除&#x2F;修改的总文件数和总行数</li>
+</ul>
+<h5 id="查看文件更改"><a href="#查看文件更改" class="headerlink" title="查看文件更改"></a>查看文件更改</h5><h6 id="git-log-p"><a href="#git-log-p" class="headerlink" title="git log -p"></a>git log -p</h6><p><code>git log</code>命令具有一个可用来显示对文件作出实际更改的选项。该选项是<code>--patch</code>，可简写为<code>-p</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log -p</span><br></pre></td></tr></table></figure>
+<p>此命令会向默认输出中添加以下信息：</p>
+<ul>
+<li>显示被修改的文件</li>
+<li>显示添加&#x2F;删除的行所在的位置</li>
+<li>显示做出的实际更改</li>
+</ul>
+<h5 id="查看特定的commit"><a href="#查看特定的commit" class="headerlink" title="查看特定的commit"></a>查看特定的commit</h5><h6 id="git-show"><a href="#git-show" class="headerlink" title="git show"></a>git show</h6><p>另一个显示特定commit的命令是<code>git show</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git show</span><br></pre></td></tr></table></figure>
+<p>运行上述命令将显示最近的commit。通常将SHA作为最后一个参数提供给命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git show fdf5493</span><br></pre></td></tr></table></figure>
+<p><code>git show</code>命令将仅显示一个commit。<code>git show</code>命令的输出和<code>git log -p</code>命令的完全一样。</p>
+<h4 id="三-向仓库中添加commit"><a href="#三-向仓库中添加commit" class="headerlink" title="三. 向仓库中添加commit"></a>三. 向仓库中添加commit</h4><h5 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h5><p><code>git add</code>命令用于将文件从工作目录移到暂存区。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add &lt;file1&gt; &lt;file2&gt; ... &lt;fileN&gt;</span><br></pre></td></tr></table></figure>
+<p>此命令：</p>
+<ul>
+<li>可接受多个文件名（用空格分隔）</li>
+<li>此外，可以使用句点<code>.</code>来代替文件列表，告诉git添加当前目录至暂存区（以及所有嵌套文件）。</li>
+</ul>
+<h5 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a>git commit</h5><p>要在git中提交commit，你需要使用<code>git commit</code>命令，但运行命令前首先要设置代码编辑器。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global core.editor &lt;your-editor&#x27;s-config-went-here&gt;</span><br></pre></td></tr></table></figure>
+<p>配置好编辑器后，可以使用<code>git commit</code>命令提交commit：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit</span><br></pre></td></tr></table></figure>
+<h6 id="使用-m选项绕过编辑器"><a href="#使用-m选项绕过编辑器" class="headerlink" title="使用-m选项绕过编辑器"></a><em>使用<code>-m</code>选项绕过编辑器</em></h6><p>如果你要编写的提交说明很简短，不想等打开代码编辑器后再输入信息，可以直接再命令行中使用<code>-m</code>选项输入信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;Initial commit&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h5><h6 id="为何需要该命令"><a href="#为何需要该命令" class="headerlink" title="为何需要该命令"></a><strong>为何需要该命令</strong></h6><p>你可能会像我一样，在晚上开始构建项目的下个功能，但是在完成之前就去睡觉了。也就是说，当我第二天开始工作的时候，有一些没有提交的更改。这很正常，因为我还没有完成新的功能，但是我不记得上次commit起我到底完成了哪些代码。<code>git status</code>将告诉我们哪些文件更改了，但是不会显示到底是什么样的更改。</p>
+<p><code>git diff</code>命令可以用来查找此类信息！<br><code>git diff</code>命令可以用来查看已被加入但是尚未提交的更改。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff</span><br></pre></td></tr></table></figure>
+<p>此命令会显示：</p>
+<ul>
+<li>已经修改的文件</li>
+<li>添加&#x2F;删除的行所在的位置</li>
+<li>执行的实际更改</li>
+</ul>
+<h5 id="让Git忽略某些文件"><a href="#让Git忽略某些文件" class="headerlink" title="让Git忽略某些文件"></a>让Git忽略某些文件</h5><h6 id="git-ignore"><a href="#git-ignore" class="headerlink" title="git ignore"></a>git ignore</h6><p>如果你想将某个文件保留在项目的目录结构中，但是确保它不会意外地提交到项目中，可以使用名称特殊的文件<code>.gitignore</code>。将此文件添加到项目根目录。你只需列出希望git ignore（忽略，不跟踪）的文件名，git将忽略这些文件。</p>
+<h6 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a><strong>通配符</strong></h6><p>通配符允许你使用特殊的字符来表示某些格式&#x2F;字符。在<code>.gitignore</code>文件中，你可以使用：</p>
+<ul>
+<li>空白行作为空格</li>
+<li><code>#</code>-将行标记为注释</li>
+<li><code>*</code>-与0个或多个字符匹配</li>
+<li><code>？</code>-与1个字符匹配</li>
+<li><code>[abc]</code>-与a、b或c匹配</li>
+<li><code>**</code>-与嵌套目录匹配-<code>a/**/z</code>与以下项匹配<ul>
+<li>a&#x2F;z</li>
+<li>a&#x2F;b&#x2F;z</li>
+<li>a&#x2F;b&#x2F;c&#x2F;z<br>因此如果有50个jpeg图片，并且位于”sample”文件夹中，那么我们可以向<code>.gitignore</code>中添加以下行，使git忽略所有这50个图片。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sample/*.jpg</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h4 id="四-标签、分支和合并"><a href="#四-标签、分支和合并" class="headerlink" title="四. 标签、分支和合并"></a>四. 标签、分支和合并</h4><h5 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h5><h6 id="git-tag命令"><a href="#git-tag命令" class="headerlink" title="git tag命令"></a>git tag命令</h6><p>我们将使用<code>git tag</code>命令与仓库的标签进行交互：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git tag -a v1.0</span><br></pre></td></tr></table></figure>
+<p>上述命令将打开代码编辑器，并等待你为标签输入信息。<br>_注意：在上述命令<code>git tag -a v1.0</code>中，使用了<code>-a</code>选项。该选项告诉git创建一个带注释的标签。如果你没有提供该选项，那么它将创建一个轻量级标签。</p>
+<h6 id="删除标签"><a href="#删除标签" class="headerlink" title="删除标签"></a>删除标签</h6><p>如果将标签消息中的某个字打错了，或标签名称打错了，如何修正这个错误？最简单的方法是删除这个标签并重新创建。<br>可以通过输入<code>-d</code>选项加上标签名称来删除git标签：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git tag -d v1.0</span><br></pre></td></tr></table></figure>
+<h6 id="向以前的commit添加标签"><a href="#向以前的commit添加标签" class="headerlink" title="向以前的commit添加标签"></a>向以前的commit添加标签</h6><p>运行<code>git tag -a v1.0</code>将为最近的commit添加标签。如果想向残酷中很久之前的commit添加标签呢？<br>只需要提供要添加标签的commit的SHA即可！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git tag -a v1.0 a87984</span><br></pre></td></tr></table></figure>
+<p>此命令将：</p>
+<ul>
+<li>向最近的commit添加标签</li>
+<li>如果提供了SHA，则向具体的commit添加标签</li>
+</ul>
+<h5 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h5><h6 id="列出分支"><a href="#列出分支" class="headerlink" title="列出分支"></a>列出分支</h6><p><code>git branch</code>命令用来与git的分支进行交互：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br></pre></td></tr></table></figure>
+<p>它可以用来：</p>
+<ul>
+<li>列出仓库中的所有分支名称</li>
+<li>创建新的分支</li>
+<li>删除分支<br>如果我们只输入<code>git branch</code>，则git将列出仓库中的分支</li>
+</ul>
+<h6 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h6><p>要创建分支，只需要使用<code>git branch</code>并提供要创建的分支对应的名称。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch sidebar</span><br></pre></td></tr></table></figure>
+
+<h6 id="git-checkout命令"><a href="#git-checkout命令" class="headerlink" title="git checkout命令"></a><code>git checkout</code>命令</h6><p>要在分支之间进行切换，我们需要使用git的<code>checkout</code>命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout sidebar</span><br></pre></td></tr></table></figure>
+
+<h6 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h6><p>分支用来进行开发或对项目进行修正，不会影响到项目（因为更改是在分支上进行的）。<br>如果你想删除分支，可以使用<code>-d</code>选项，告诉git删掉给出的分支。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -d sidebar</span><br></pre></td></tr></table></figure>
+<p>注意，无法删除当前所在的分支。<br>如果某个分支上有其它分支上都没有的commit，git不会删除该分支。要强制删除，你需要使用大写的D选项-<code>git branch -D sidebar</code>。</p>
+<p>此命令用来：</p>
+<ul>
+<li>列出本地分支</li>
+<li>创建新的分支</li>
+<li>删除分支</li>
+</ul>
+<h5 id="高效分支"><a href="#高效分支" class="headerlink" title="高效分支"></a>高效分支</h5><h6 id="用一个命令切换并创建分支"><a href="#用一个命令切换并创建分支" class="headerlink" title="用一个命令切换并创建分支"></a><em><strong>用一个命令切换并创建分支</strong></em></h6><p><code>git checkout</code>命令也可以创建一个新的分支。如果你添加<code>-b</code>选项，则能够用一个命令创建分支并切换到该分支。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b branch-for-changes</span><br></pre></td></tr></table></figure>
+<p>我们使用新的<code>git checkout</code>命令来创建新的分支并让此分支的起点位置与master分支的一样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b footer master</span><br></pre></td></tr></table></figure>
+
+<h6 id="同时查看所有分支"><a href="#同时查看所有分支" class="headerlink" title="同时查看所有分支"></a>同时查看所有分支</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --oneline --decorate --graph --all</span><br></pre></td></tr></table></figure>
+<p><code>--graph</code>选项将条目和行添加到输出的最左侧。显示了实际的分支。<code>--all</code>选项会显示仓库中的所有分支。</p>
+<h5 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h5><p>主题分支的作用是让你做出不影响<code>master</code>分支的更改。当你在主题分支上做出更改后，如果觉得不想要该分支上的更改，则可以删掉该分支，或者你决定要保留更改，则可以将该分支上的更改与其他分支上的更改合并。<br>将分支合到一起成为__合并__。</p>
+<h6 id="合并指令"><a href="#合并指令" class="headerlink" title="合并指令"></a>合并指令</h6><p><code>git merge</code>指令用来合并git分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge &lt;name-of-branch-to-merge-in&gt;</span><br></pre></td></tr></table></figure>
+<p>发生合并时，git将：</p>
+<ul>
+<li>查看将合并的分支</li>
+<li>查看分支的历史记录并寻找两个分支的commit历史记录中都有的单个commit</li>
+<li>将单个分支上更改的代码合并到一起</li>
+<li>提交一个commit来记录合并操作</li>
+</ul>
+<h6 id="快进合并"><a href="#快进合并" class="headerlink" title="快进合并"></a>快进合并</h6><p>快进合并将使当前检出的分支向前移动，知道它指向与另一个分支指向的commit一样为止，快进合并不会提交新的commit。</p>
+<h6 id="合并小结"><a href="#合并小结" class="headerlink" title="合并小结"></a>合并小结</h6><p>总结下，<code>git merge</code>命令用来在git中合并分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge &lt;other-branch&gt;</span><br></pre></td></tr></table></figure>
+<p>合并有以下两种类型：</p>
+<ul>
+<li>快进合并-要合并的分支必须位于检出分支前面。检出分支的指针将向前移动，指向另一分支所指向的同一commit。</li>
+<li>普通类型的合并<ul>
+<li>两个完全不同的分支被合并</li>
+<li>创建一个合并commit</li>
+</ul>
+</li>
+</ul>
+<h5 id="合并冲突"><a href="#合并冲突" class="headerlink" title="合并冲突"></a>合并冲突</h5><p>当相同的行在要合并的不同分支上做出了更改时，就会出现合并冲突。git将在合并途中暂停，并告诉你存在冲突，以及哪些文件存在冲突。<br>要解决文件中的冲突：</p>
+<ul>
+<li>找到并删掉存在合并冲突指示符的所有行</li>
+<li>决定保留哪些行</li>
+<li>保存文件</li>
+<li>暂存文件</li>
+<li>提交commit<br>注意一个文件可能在多个部分存在合并冲突，因此检查整个文件中的合并冲突指示符，搜索<code>&lt;&lt;&lt;</code>能够帮助你找到所有这些指示符。</li>
+</ul>
+<h4 id="五-撤销更改"><a href="#五-撤销更改" class="headerlink" title="五. 撤销更改"></a>五. 撤销更改</h4><h5 id="更改最后一个commit"><a href="#更改最后一个commit" class="headerlink" title="更改最后一个commit"></a>更改最后一个commit</h5><p><code>--amend</code>选项，可以更改最近的commit</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend</span><br></pre></td></tr></table></figure>
+<p>该命令可以向最后一个commit中添加忘记的文件，而不是创建新的commit。</p>
+<h5 id="还原commit"><a href="#还原commit" class="headerlink" title="还原commit"></a>还原commit</h5><p><code>git revert</code>命令<br>现在我创建了一个包含一些更改的commit，我可以使用<code>git revert</code>命令还原它</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git revert &lt;SHA-of-commit-to-revert&gt;</span><br></pre></td></tr></table></figure>
+
+<h6 id="revert小结"><a href="#revert小结" class="headerlink" title="revert小结"></a>revert小结</h6><p>该命令用于还原之前创建的commit：<br>此命令：</p>
+<ul>
+<li>将撤销目标commit所做出的更改</li>
+<li>创建一个新的commit来记录这一更改</li>
+</ul>
+<h5 id="重置commit"><a href="#重置commit" class="headerlink" title="重置commit"></a>重置commit</h5><h6 id="重置与还原"><a href="#重置与还原" class="headerlink" title="重置与还原"></a>重置与还原</h6><p>初看，重置（reset）似乎和还原（revert）相似，但他们实际上差别很大。还原会创建一个新的commit，并还原或撤销之前的commit。但是重置会清除commit！<br><em>一定要谨慎使用 git 的重置功能。这是少数几个可以从仓库中清除 commit 的命令。如果某个 commit 不再存在于仓库中，它所包含的内容也会消失。</em></p>
+<h6 id="相关commit引用"><a href="#相关commit引用" class="headerlink" title="相关commit引用"></a>相关commit引用</h6><p>有时候你需要告诉 git 调用当前 commit 的前一个 commit，或者是前两个 commit。我们可以使用特殊的“祖先引用”字符来告诉 git 这些相对引用。这些字符为：</p>
+<ul>
+<li><code>^</code>-表示父commit</li>
+<li><code>~</code>-表示第一个父commit<br>我们可以通过以下方式引用之前的 commit：</li>
+<li>父 commit – 以下内容表示当前 commit 的父 commit</li>
+<li>HEAD^</li>
+<li>HEAD~</li>
+<li>HEAD~1</li>
+<li>祖父 commit – 以下内容表示当前 commit 的祖父 commit</li>
+<li>HEAD^^</li>
+<li>HEAD~2</li>
+<li>曾祖父 commit – 以下内容表示当前 commit 的曾祖父 commit</li>
+<li>HEAD^^^</li>
+<li>HEAD~3</li>
+</ul>
+<p><code>^</code> 和 <code>~</code> 的区别主要体现在通过合并而创建的 commit 中。合并 commit 具有两个父级。对于合并 commit，<code>^</code> 引用用来表示第一个父 commit，而 <code>^2</code> 表示第二个父 commit。第一个父 commit 是当你运行 git merge 时所处的分支，而第二个父 commit 是被合并的分支。</p>
+<p>我们来看看如何引用一些之前的 commit。因为 HEAD 指向 9ec05ca commit：</p>
+<p><code>HEAD^</code> 是 <code>db7e87a</code> commit<br><code>HEAD~1</code> 同样是 <code>db7e87a</code> commit<br><code>HEAD^^</code> 是 <code>796ddb0</code> commit<br><code>HEAD~2</code> 同样是 <code>796ddb0</code> commit<br><code>HEAD^^^</code> 是 <code>0c5975a</code> commit<br><code>HEAD~3</code> 同样是 <code>0c5975a</code> commit<br><code>HEAD^^^2</code> 是 <code>4c9749e</code> commit（这是曾祖父的 (<code>HEAD^^</code>) 第二个父 commit (<code>^2</code>))</p>
+<h6 id="git-reset命令"><a href="#git-reset命令" class="headerlink" title="git reset命令"></a><code>git reset</code>命令</h6><p><code>git reset</code>命令用来重置（清楚）commit：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset &lt;reference-to-commit&gt;</span><br></pre></td></tr></table></figure>
+<p>可以用来：</p>
+<ul>
+<li>将HEAD和当前分支指针移到目标commit</li>
+<li>清楚commit</li>
+<li>将commit的更改移动到暂存区</li>
+<li>取消暂存commit的更改</li>
+</ul>
+<h6 id="git-reset的选项"><a href="#git-reset的选项" class="headerlink" title="git reset的选项"></a>git reset的选项</h6><p>git 根据所使用选项来判断是清除、暂存之前 commit 的更改，还是取消暂存之前 commit 的更改。这些选项包括：</p>
+<ul>
+<li><code>--mixed</code></li>
+<li><code>--soft</code></li>
+<li><code>--hard</code></li>
+</ul>
+<h6 id="备份分支"><a href="#备份分支" class="headerlink" title="备份分支"></a>备份分支</h6><p>注意，使用 <code>git reset</code> 命令将清除当前分支上的 commit。<br><em>在进行任何重置操作之前，我通常会在最近的 commit 上创建一个 <code>backup</code> 分支，因此如果出现错误，我可以返回这些 commit：</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch backup</span><br></pre></td></tr></table></figure>
+
+<h6 id="reset小结"><a href="#reset小结" class="headerlink" title="reset小结"></a>reset小结</h6><p>总结下，<code>git reset</code> 命令被用来清除 commit：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset &lt;reference-to-commit&gt;</span><br></pre></td></tr></table></figure>
+<p>它可以用来：</p>
+<ul>
+<li>将 HEAD 和当前分支指针移到引用的 commit</li>
+<li>使用 <code>--hard</code> 选项清除 commit</li>
+<li>使用 <code>--soft</code> 选项将 commit 的更改移至暂存区</li>
+<li>使用 <code>--mixed</code> 选项取消暂存已被 commit 的更改</li>
+</ul>
+<p>我们通常会用到祖先引用来指代之前的 commit。祖先引用包含：</p>
+<ul>
+<li><code>^</code>–表示父 commit</li>
+<li><code>~</code>–表示第一个父 commit</li>
 </ul>
 
       
